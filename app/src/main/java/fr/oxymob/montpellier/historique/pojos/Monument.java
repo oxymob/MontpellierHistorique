@@ -2,35 +2,38 @@ package fr.oxymob.montpellier.historique.pojos;
 
 import java.util.Collection;
 import android.net.Uri;
+
+import fr.oxymob.montpellier.historique.NetworkCall;
 import fr.oxymob.montpellier.historique.utils.Functions;
 
-public class MonumentBean {
+import com.google.gson.annotations.SerializedName;
 
-	private String fid; 						// r�f�rence
-	private String monument;					// nom du Monument
-	private String protection;				// type de protection
-	private String noticemh;					// r�f�rence MH
-	private String descmh;					// quels sont les �l�ments prot�g�s ?
-	private String desc;						// contenu �ditorial - description
-	private String adresse;					// adresse du monument (ou POI)
-	private String adresse2;					// adresse du monument (ou POI)
-	private String adresse3;					// adresse du monument (ou POI)
-	private String date;						// date de classement
-	private String lat;						// latitude
-	private String lg;						// longitude
-	private String noticeinventaire;			// SAISIE SUR PLACE : note inventaire MH
-	private String epoque;
-	private String urlwikipedia;
+public class Monument {
+    @SerializedName("id") private String fid; 						// r�f�rence
+    @SerializedName("nom") private String monument;					// nom du Monument
+    @SerializedName("classement") private String protection;		// type de protection
+    @SerializedName("merimee") private String noticemh;				// r�f�rence MH
+    @SerializedName("desc") private String descmh;					// quels sont les �l�ments prot�g�s ?
+    //private String desc;						// contenu �ditorial - description
+    @SerializedName("adr1") private String adresse;					// adresse du monument (ou POI)
+    @SerializedName("adr2") private String adresse2;				// adresse du monument (ou POI)
+    @SerializedName("adr3") private String adresse3;				// adresse du monument (ou POI)
+    @SerializedName("date") private String date;					// date de classement
+    @SerializedName("lat") private String lat;						// latitude
+    @SerializedName("lg") private String lg;						// longitude
+    @SerializedName("epoque") private String epoque;
+    @SerializedName("wikipedia") private String urlwikipedia;
+    @SerializedName("pic") private String vignette;
 	private String datemodif;				// SAISIE SUR PLACE : date de modif de l'enregistrement
 	private String notes;					// SAISIE SUR PLACE : notes ajout�es � la fiche
+    private String noticeinventaire;			// SAISIE SUR PLACE : note inventaire MH
 	private int interet;						// SAISIE SUR PLACE : note int�r�t (sur 10)
 	private int multipoi;					// SAISIE SUR PLACE : multiple POI possible ?
-	private String vignette;
-	private Collection<PhotoBean> list_photos;
+	private Collection<Photo> list_photos;
 
-	public static MonumentBean fromTextLine(String line) {
+	public static Monument fromTextLine(String line) {
 		String tokens[] = Functions.splitTotokens(line, "|");
-		MonumentBean mon = new MonumentBean();
+		Monument mon = new Monument();
 		mon.fid = tokens[0];
 		mon.monument = tokens[1];
 		mon.protection = tokens[2];
@@ -43,7 +46,7 @@ public class MonumentBean {
 		mon.date = tokens[9];
 		mon.lat = tokens[10];
 		mon.lg = tokens[11];
-		mon.desc = mon.fid + ".html";
+		//mon.desc = mon.fid + ".html";
 		mon.urlwikipedia = tokens[12];
 		if (mon.urlwikipedia.equals("NC"))
 			mon.urlwikipedia = "";
@@ -60,7 +63,7 @@ public class MonumentBean {
 		sb.append("protection").append(" : ").append(protection).append("\n");
 		sb.append("noticemh").append(" : ").append(noticemh).append("\n");
 		sb.append("descmh").append(" : ").append(descmh).append("\n");
-		sb.append("desc").append(" : ").append(desc).append("\n");
+		//sb.append("desc").append(" : ").append(desc).append("\n");
 		sb.append("adresse").append(" : ").append(adresse).append("\n");
 		sb.append("date").append(" : ").append(date).append("\n");
 
@@ -107,13 +110,13 @@ public class MonumentBean {
 		this.descmh = descmh;
 	}
 
-	public String getDesc() {
+	/*public String getDesc() {
 		return desc;
 	}
 
 	public void setDesc(String desc) {
 		this.desc = desc;
-	}
+	}*/
 
 	public String getAdresse() {
 		return adresse;
@@ -227,20 +230,20 @@ public class MonumentBean {
 		this.vignette = vignette;
 	}
 
-	public Uri getVignetteUri() {
+	public String getVignetteUri() {
 		/*String str = AssetsProvider.CONTENT_URI + "montpellier.jpg";
 		
 		if ((vignette != null) && (vignette.length()) > 0)
 			str = AssetsProvider.CONTENT_URI + vignette;*/
 
-		return Uri.parse(vignette);
+		return NetworkCall.PATH + vignette;
 	}
 
-	public void setList_photos(Collection<PhotoBean> list_photos) {
+	public void setList_photos(Collection<Photo> list_photos) {
 		this.list_photos = list_photos;
 	}
 
-	public Collection<PhotoBean> getList_photos() {
+	public Collection<Photo> getList_photos() {
 		return list_photos;
 	}
 

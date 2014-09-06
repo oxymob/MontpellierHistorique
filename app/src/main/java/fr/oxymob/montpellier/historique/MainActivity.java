@@ -1,46 +1,49 @@
 package fr.oxymob.montpellier.historique;
 
-import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import java.util.List;
+import fr.oxymob.montpellier.historique.activities.AbsNavigationActivity;
+import fr.oxymob.montpellier.historique.fragments.MHListFragment;
+import fr.oxymob.montpellier.historique.pojos.Monument;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+public class MainActivity extends AbsNavigationActivity {
 
-import java.net.URL;
-
-import fr.oxymob.montpellier.historique.utils.Functions;
-
-
-public class MainActivity extends Activity {
+    private List<Monument> listMonument;
+    private DatasHelper datasHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new DownloadFilesTask().execute("http://oxymob.fr/server/montpellier/monuments.json");
+        datasHelper = new DatasHelper(this);
     }
 
-    private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
-        protected Long doInBackground(String... urls) {
-            int count = urls.length;
-            long totalSize = 0;
-            for (int i = 0; i < count; i++) {
-                Functions.downloadFile(getBaseContext(), urls[i]);
-            }
-            return totalSize;
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        protected void onPostExecute(Long result) {
-            String jsonText = Functions.openFile(getBaseContext(), "monuments.json");
-       }
+    public void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
     }
 
+    @Override
+    public void selectNavItem(int position) {
+        Fragment fragment = null;
+        switch (position) {
+            case 0 :
+                fragment = MHListFragment.newInstance(datasHelper.getAllPosition());
+                break;
+            case 1:
+                break;
+        }
+        if (fragment != null)
+            openNavFragment(fragment);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

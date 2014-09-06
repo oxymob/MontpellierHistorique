@@ -4,21 +4,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.net.Uri;
 
-public class Position implements Comparable<Position>{
-	public String fid; 						// r�f�rence
-	public String monument;					// nom du Monument
-	public double lat;						// latitude
-	public double lg;						// longitude
-	public String desc;						// contenu �ditorial - description
-	public String adresse;					// adresse du monument (ou POI)
-	public double distance;
-	public String epoque = "";
-	private double currentLat, currentLg;  
-	public Uri imageURI;
+import java.io.Serializable;
 
+public class Position implements Serializable, Comparable<Position>{
+    private String fid; 						// r�f�rence
+    private String monument;					// nom du Monument
+    private double lat;						// latitude
+    private double lg;						// longitude
+    private String desc;						// contenu �ditorial - description
+    private String adresse;					// adresse du monument (ou POI)
+    private double distance;
+    private String epoque = "";
+    private double currentLat, currentLg;
+    private String imageURL;
 	private Point point;
 
-	private class Point
+	private class Point implements  Serializable
 	{
 		private double latitude;
 		private double longitude;
@@ -77,6 +78,32 @@ public class Position implements Comparable<Position>{
 		return object;
 	}
 
+    public void copyFromMonument(Monument monument) {
+        setAdresse(monument.getAdresse());
+        //pos.desc = monument.getDesc();
+        setDesc(monument.getAdresses() + "Epoque : " + monument.getEpoque());
+        setEpoque(monument.getEpoque());
+
+        //String descHtml = Functions.loadHtmlFromFile(monument.getDesc());
+        //if (descHtml != null) {
+        //	pos.desc = Functions.getSpan(descHtml);
+        //	pos.desc = Html.fromHtml(descHtml); //monument.getDesc();
+        //}
+        setFid(monument.getFid());
+        if (monument.getLat() != null && monument.getLat() != "")
+            setLat(Double.parseDouble(monument.getLat()));
+        if (monument.getLg() != null && monument.getLg() != "")
+            setLg(Double.parseDouble(monument.getLg()));
+        setMonument(monument.getMonument());
+
+        setImageURI(monument.getVignetteUri());
+				/*
+				if ((monument.getVignette() != null) && (monument.getVignette().length()) > 0) {
+					String str = "content://fr.oxymob.clepsydre.assets/" + monument.getVignette();
+					pos.imageURI = Uri.parse(str);
+				}*/
+    }
+
 	public String toString() {
 		String ret = "";
 
@@ -99,5 +126,99 @@ public class Position implements Comparable<Position>{
 		return strDistance;
 	}
 
+    public String getFid() {
+        return fid;
+    }
 
+    public String getMonument() {
+        return monument;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLg() {
+        return lg;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public String getEpoque() {
+        return epoque;
+    }
+
+    public double getCurrentLat() {
+        return currentLat;
+    }
+
+    public double getCurrentLg() {
+        return currentLg;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
+    }
+
+    public void setMonument(String monument) {
+        this.monument = monument;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLg(double lg) {
+        this.lg = lg;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public void setEpoque(String epoque) {
+        this.epoque = epoque;
+    }
+
+    public void setCurrentLat(double currentLat) {
+        this.currentLat = currentLat;
+    }
+
+    public void setCurrentLg(double currentLg) {
+        this.currentLg = currentLg;
+    }
+
+    public void setImageURI(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
+    }
 }

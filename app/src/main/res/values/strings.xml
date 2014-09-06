@@ -4,5 +4,12 @@
     <string name="app_name">Montpellier Historique</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+
+    <string name="network_call_ko">Impossible de récupérer les données des monuments sur nos serveurs. Veuillez vérifier votre connexion internet !</string>
+    <string name="title_wait">Veuillez patienter svp...</string>
+    <string name="title_visit">Visitez les monuments historiques de la ville de Montpellier</string>
+    <string name="do_you_want_to_quit">Souhaitez-vous quitter l\'application ?</string>
 
 </resources>

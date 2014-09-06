@@ -3,10 +3,10 @@ package fr.oxymob.montpellier.historique.pojos;
 import android.net.Uri;
 import fr.oxymob.montpellier.historique.utils.Functions;
 
-public class PhotoBean {
+public class Photo {
 
 	private String path;
-	private MonumentBean monument;
+	private Monument monument;
 	private String url;
 	private String auteur;
 	private String source;
@@ -79,10 +79,10 @@ public class PhotoBean {
 	public void setTaille(String taille) {
 		this.taille = taille;
 	}
-	public static PhotoBean fromTextLine(String line) {
+	public static Photo fromTextLine(String line) {
 		String tokens[] = Functions.splitTotokens(line, "|");
 
-		PhotoBean newPhoto = new PhotoBean();
+		Photo newPhoto = new Photo();
 		String id_mon = tokens[0];
 		//newPhoto.monument = MonumentController.getInstance().queryForId(id_mon);
 		//newPhoto.fid = tokens[0];
@@ -119,10 +119,10 @@ public class PhotoBean {
 
 		return sb.toString();
 	}
-	public void setMonument(MonumentBean monument) {
+	public void setMonument(Monument monument) {
 		this.monument = monument;
 	}
-	public MonumentBean getMonument() {
+	public Monument getMonument() {
 		return monument;
 	}
 

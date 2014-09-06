@@ -55,7 +55,8 @@ public class Functions {
         return tokens;
     }
 
-    public static void downloadFile(Context context, String urlFile) {
+    public static String downloadFile(Context context, String urlFile) {
+        String fileName = urlFile.substring(urlFile.lastIndexOf("/") + 1);
         try {
             URL url = new URL(urlFile);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -67,7 +68,6 @@ public class Functions {
 
             //set the path where we want to save the file
             //create a new file, to save the downloaded file
-            String fileName = urlFile.substring(urlFile.lastIndexOf("/") + 1);
             File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
             FileOutputStream fileOutput = new FileOutputStream(file);
 
@@ -85,11 +85,16 @@ public class Functions {
 
         } catch (final MalformedURLException e) {
             e.printStackTrace();
+            fileName = null;
         } catch (final IOException e) {
             e.printStackTrace();
+            fileName = null;
         } catch (final Exception e) {
             e.printStackTrace();
+            fileName = null;
         }
+
+        return fileName;
     }
 
     public static String openFile(Context context, String fileName) {
@@ -102,7 +107,7 @@ public class Functions {
 
             while ((line = br.readLine()) != null) {
                 text.append(line);
-                text.append('\n');
+                //text.append('\n');
             }
             br.close();
         }
@@ -110,5 +115,10 @@ public class Functions {
             //You'll need to add proper error handling here
         }
         return text.toString();
+    }
+
+    public static boolean fileExists(Context context, String sFileName) {
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), sFileName);
+        return file.exists();
     }
 }

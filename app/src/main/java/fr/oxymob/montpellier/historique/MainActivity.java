@@ -1,24 +1,41 @@
 package fr.oxymob.montpellier.historique;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.MapsInitializer;
 import java.util.List;
 import fr.oxymob.montpellier.historique.activities.AbsNavigationActivity;
-import fr.oxymob.montpellier.historique.fragments.MHListFragment;
+import fr.oxymob.montpellier.historique.fragments.FAbout;
+import fr.oxymob.montpellier.historique.fragments.FList;
+import fr.oxymob.montpellier.historique.fragments.FMap;
 import fr.oxymob.montpellier.historique.pojos.Monument;
+import fr.oxymob.montpellier.historique.utils.DatasHelper;
 
 public class MainActivity extends AbsNavigationActivity {
 
+    private static final String KEY_CONTENT = "mContent";
     private List<Monument> listMonument;
     private DatasHelper datasHelper;
+    private Fragment mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            MapsInitializer.initialize(getApplicationContext());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            mContent = getSupportFragmentManager().getFragment(savedInstanceState, KEY_CONTENT);
+        }
         setContentView(R.layout.activity_main);
         datasHelper = new DatasHelper(this);
     }
@@ -33,34 +50,55 @@ public class MainActivity extends AbsNavigationActivity {
 
     @Override
     public void selectNavItem(int position) {
-        Fragment fragment = null;
         switch (position) {
-            case 0 :
-                fragment = MHListFragment.newInstance(datasHelper.getAllPosition());
+            case 0:
+                mContent = FMap.newInstance(datasHelper.getAllPosition());
                 break;
             case 1:
+                mContent = FList.newInstance(datasHelper.getAllPosition());
+                break;
+            case 2:
+                mContent = FAbout.newInstance();
                 break;
         }
-        if (fragment != null)
-            openNavFragment(fragment);
+        if (mContent != null)
+            openNavFragment(mContent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, KEY_CONTENT, mContent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.menu_share:
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Une application sur les monuments historiques de Montpellier !");
+                String content = "Bonjour," + "\n\n";
+                content += "Je viens de tester cette nouvelle application, Montpellier Historique. \n" +
+                        "Application développée à partir des Données Publiques ouvertes par la ville de Montpellier et soutenue dans le cadre de Montpellier-Innovation. " +
+                        "L'application est téléchargeable sur Google Play : https://play.google.com/store/apps/details?fr.oxymob.montpellier.historique";
+                intent.putExtra(Intent.EXTRA_TEXT, content);
+                startActivity(intent);
+
+                break;
+
+            case R.id.menu_ar:
+
+
+                break;
         }
-        return super.onOptionsItemSelected(item);
+    return super.onOptionsItemSelected(item);
     }
 }

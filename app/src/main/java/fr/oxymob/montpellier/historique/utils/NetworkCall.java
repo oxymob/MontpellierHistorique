@@ -1,7 +1,10 @@
-package fr.oxymob.montpellier.historique;
+package fr.oxymob.montpellier.historique.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import java.io.IOException;
+
 import fr.oxymob.montpellier.historique.utils.Functions;
 
 /**
@@ -43,7 +46,13 @@ public class NetworkCall {
             int count = urls.length;
             long totalSize = 0;
             for (int i = 0; i < count; i++) {
-                Functions.downloadFile(mContext, urls[i]);
+                try {
+                    Functions.downloadFile(mContext, urls[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    if (mListener != null)
+                        mListener.onError();
+                }
             }
             return totalSize;
         }

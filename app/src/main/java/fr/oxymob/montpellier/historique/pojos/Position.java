@@ -2,8 +2,6 @@ package fr.oxymob.montpellier.historique.pojos;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.net.Uri;
-
 import java.io.Serializable;
 
 public class Position implements Serializable, Comparable<Position>{
@@ -97,11 +95,6 @@ public class Position implements Serializable, Comparable<Position>{
         setMonument(monument.getMonument());
 
         setImageURI(monument.getVignetteUri());
-				/*
-				if ((monument.getVignette() != null) && (monument.getVignette().length()) > 0) {
-					String str = "content://fr.oxymob.clepsydre.assets/" + monument.getVignette();
-					pos.imageURI = Uri.parse(str);
-				}*/
     }
 
 	public String toString() {

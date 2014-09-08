@@ -54,7 +54,7 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
 				R.string.drawer_close  /* "close drawer" description for accessibility */
 				) {
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
+				//getActionBar().setTitle(mTitle);
 				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 
@@ -69,17 +69,16 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
 		vDrawerList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View v, int pos, long id) {
-				selectItem(pos);
-			}
+                selectNavItem(pos);
+                vDrawerLayout.closeDrawer(vDrawerList);
+            }
 		} );
 
 		mDrawerToggle.syncState();
 
         mTitles = getResources().getStringArray(R.array.flyin_menu_titles);
 
-		//mFlyinMenuAdapter = new ListFlyinMenuItemsAdapter(this, FlyinMenuHelper.getFlyinMenuItemsList());
         vDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mTitles));
-		//vDrawerList.setAdapter(mFlyinMenuAdapter);
 	}
 
     protected void openNavFragment(android.support.v4.app.Fragment fragment) {
@@ -87,25 +86,6 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
     }
-
-	private void selectItem(int position) {
-	/*	FlyinMenuItems item = mFlyinMenuAdapter.getItem(position);
-		switch (item.getTextKey()) {
-		default:
-            Fragment fragment = Fragment.instantiate(this, item.getRedirectActivityClass().getName());
-            Bundle args = new Bundle();
-            fragment.setArguments(args);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-			break;
-		}
-
-		vDrawerList.setItemChecked(position, true);
-		setTitle(item.getTextKey());*/
-        selectNavItem(position);
-        vDrawerLayout.closeDrawer(vDrawerList);
-	}
 
 	@Override
 	public void onBackPressed() {
@@ -180,8 +160,8 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 		if (savedInstanceState == null) {
-			selectItem(0);
-		}
+            selectNavItem(0);
+        }
 	}
 
 	@Override

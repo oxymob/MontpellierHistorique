@@ -10,7 +10,7 @@ import fr.oxymob.montpellier.historique.utils.BitmapLruCache;
  * Created by dany on 05/09/14.
  */
 public class MontpellierHistorique extends Application {
-    public static final String FILE_MONUMENTS = "monuments.json";
+    public static final String LIEN_MERIMEE = "http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=";
     public static MontpellierHistorique instance;
     private ImageLoader mVolleyImageLoader;
     private RequestQueue mRequestQueue;

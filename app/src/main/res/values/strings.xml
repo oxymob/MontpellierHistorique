@@ -11,5 +11,8 @@
     <string name="title_wait">Veuillez patienter svp...</string>
     <string name="title_visit">Visitez les monuments historiques de la ville de Montpellier</string>
     <string name="do_you_want_to_quit">Souhaitez-vous quitter l\'application ?</string>
+    <string name="menu_share">Partager</string>
+    <string name="menu_ra">Réalité augmentée</string>
+
 
 </resources>

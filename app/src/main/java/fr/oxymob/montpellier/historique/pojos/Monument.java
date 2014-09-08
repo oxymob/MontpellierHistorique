@@ -1,20 +1,16 @@
 package fr.oxymob.montpellier.historique.pojos;
 
+import java.io.Serializable;
 import java.util.Collection;
-import android.net.Uri;
-
-import fr.oxymob.montpellier.historique.NetworkCall;
-import fr.oxymob.montpellier.historique.utils.Functions;
-
+import fr.oxymob.montpellier.historique.utils.NetworkCall;
 import com.google.gson.annotations.SerializedName;
 
-public class Monument {
+public class Monument implements Serializable {
     @SerializedName("id") private String fid; 						// r�f�rence
     @SerializedName("nom") private String monument;					// nom du Monument
     @SerializedName("classement") private String protection;		// type de protection
     @SerializedName("merimee") private String noticemh;				// r�f�rence MH
     @SerializedName("desc") private String descmh;					// quels sont les �l�ments prot�g�s ?
-    //private String desc;						// contenu �ditorial - description
     @SerializedName("adr1") private String adresse;					// adresse du monument (ou POI)
     @SerializedName("adr2") private String adresse2;				// adresse du monument (ou POI)
     @SerializedName("adr3") private String adresse3;				// adresse du monument (ou POI)
@@ -30,29 +26,6 @@ public class Monument {
 	private int interet;						// SAISIE SUR PLACE : note int�r�t (sur 10)
 	private int multipoi;					// SAISIE SUR PLACE : multiple POI possible ?
 	private Collection<Photo> list_photos;
-
-	public static Monument fromTextLine(String line) {
-		String tokens[] = Functions.splitTotokens(line, "|");
-		Monument mon = new Monument();
-		mon.fid = tokens[0];
-		mon.monument = tokens[1];
-		mon.protection = tokens[2];
-		mon.noticemh = tokens[3];
-		mon.descmh = tokens[4];
-		mon.adresse = tokens[5];
-		mon.adresse2 = tokens[6];
-		mon.adresse3 = tokens[7];
-		mon.epoque = tokens[8];
-		mon.date = tokens[9];
-		mon.lat = tokens[10];
-		mon.lg = tokens[11];
-		//mon.desc = mon.fid + ".html";
-		mon.urlwikipedia = tokens[12];
-		if (mon.urlwikipedia.equals("NC"))
-			mon.urlwikipedia = "";
-		mon.vignette = tokens[13];
-		return mon;
-	}
 
 	@Override
 	public String toString() {
@@ -110,13 +83,7 @@ public class Monument {
 		this.descmh = descmh;
 	}
 
-	/*public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}*/
+	public String getPageHtml() {	return fid + ".html";}
 
 	public String getAdresse() {
 		return adresse;
@@ -231,11 +198,6 @@ public class Monument {
 	}
 
 	public String getVignetteUri() {
-		/*String str = AssetsProvider.CONTENT_URI + "montpellier.jpg";
-		
-		if ((vignette != null) && (vignette.length()) > 0)
-			str = AssetsProvider.CONTENT_URI + vignette;*/
-
 		return NetworkCall.PATH + vignette;
 	}
 

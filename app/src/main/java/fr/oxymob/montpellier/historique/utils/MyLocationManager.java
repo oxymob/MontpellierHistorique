@@ -1,4 +1,4 @@
-package fr.oxymob.montpellier.historique;
+package fr.oxymob.montpellier.historique.utils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +11,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import fr.oxymob.montpellier.historique.MontpellierHistorique;
 
 public class MyLocationManager extends Observable implements LocationListener {
 	LocationManager mlocManager ;

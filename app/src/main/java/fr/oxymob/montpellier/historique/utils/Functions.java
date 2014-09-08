@@ -9,7 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
@@ -55,44 +54,34 @@ public class Functions {
         return tokens;
     }
 
-    public static String downloadFile(Context context, String urlFile) {
+    public static String downloadFile(Context context, String urlFile) throws IOException {
         String fileName = urlFile.substring(urlFile.lastIndexOf("/") + 1);
-        try {
-            URL url = new URL(urlFile);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setDoOutput(true);
+        URL url = new URL(urlFile);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setDoOutput(true);
 
-            //connect
-            urlConnection.connect();
+        //connect
+        urlConnection.connect();
 
-            //set the path where we want to save the file
-            //create a new file, to save the downloaded file
-            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
-            FileOutputStream fileOutput = new FileOutputStream(file);
+        //set the path where we want to save the file
+        //create a new file, to save the downloaded file
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
+        FileOutputStream fileOutput = new FileOutputStream(file);
 
-            //Stream used for reading the data from the internet
-            InputStream inputStream = urlConnection.getInputStream();
-            //create a buffer...
-            byte[] buffer = new byte[1024];
-            int bufferLength = 0;
+        //Stream used for reading the data from the internet
+        InputStream inputStream = urlConnection.getInputStream();
+        //create a buffer...
+        byte[] buffer = new byte[1024];
+        int bufferLength = 0;
 
-            while ( (bufferLength = inputStream.read(buffer)) > 0 ) {
-                fileOutput.write(buffer, 0, bufferLength);
-            }
-            //close the output stream when complete //
-            fileOutput.close();
-
-        } catch (final MalformedURLException e) {
-            e.printStackTrace();
-            fileName = null;
-        } catch (final IOException e) {
-            e.printStackTrace();
-            fileName = null;
-        } catch (final Exception e) {
-            e.printStackTrace();
-            fileName = null;
+        while ( (bufferLength = inputStream.read(buffer)) > 0 ) {
+            fileOutput.write(buffer, 0, bufferLength);
         }
+        //close the output stream when complete //
+        fileOutput.close();
+
+
 
         return fileName;
     }

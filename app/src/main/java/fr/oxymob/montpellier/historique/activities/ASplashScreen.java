@@ -1,25 +1,23 @@
 package fr.oxymob.montpellier.historique.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import java.util.List;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import fr.oxymob.montpellier.historique.utils.DatasHelper;
 import fr.oxymob.montpellier.historique.MainActivity;
-import fr.oxymob.montpellier.historique.MontpellierHistorique;
-import fr.oxymob.montpellier.historique.NetworkCall;
+import fr.oxymob.montpellier.historique.utils.NetworkCall;
 import fr.oxymob.montpellier.historique.R;
-import fr.oxymob.montpellier.historique.pojos.Monument;
 import fr.oxymob.montpellier.historique.utils.Functions;
 
 /**
  * Created by dany on 05/09/14.
  */
-public class SplashActivity extends Activity implements NetworkCall.NetworkCallListener {
+public class ASplashScreen extends Activity implements NetworkCall.NetworkCallListener {
     private static final int SPLASH_SCREEN_DURATION=500;
     private NetworkCall mNetworkCallMonuments;
 
@@ -27,15 +25,22 @@ public class SplashActivity extends Activity implements NetworkCall.NetworkCallL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-        if (!Functions.fileExists(getBaseContext(), MontpellierHistorique.FILE_MONUMENTS))
-            executeNetworkCall(MontpellierHistorique.FILE_MONUMENTS);
-        else
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    callMainActivity();
-                }
-            }, SPLASH_SCREEN_DURATION);
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+
+        if (resultCode != ConnectionResult.SUCCESS){
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 1 );
+            dialog.show();
+       } else {
+            if (!Functions.fileExists(getBaseContext(), DatasHelper.FILE_MONUMENTS))
+                executeNetworkCall(DatasHelper.FILE_MONUMENTS);
+            else
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        callMainActivity();
+                    }
+                }, SPLASH_SCREEN_DURATION);
+        }
     }
 
     private void callMainActivity() {
@@ -52,11 +57,6 @@ public class SplashActivity extends Activity implements NetworkCall.NetworkCallL
 
     @Override
     public void onFileDownloaded(String fileName) {
-        String jsonText = Functions.openFile(getBaseContext(), fileName);
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setDateFormat("dd MM yyyy"); //Format of our JSON dates
-        Gson gson = gsonBuilder.create();
-        List<Monument> list = gson.fromJson(jsonText, new TypeToken<List<Monument>>() {}.getType());
         callMainActivity();
     }
 

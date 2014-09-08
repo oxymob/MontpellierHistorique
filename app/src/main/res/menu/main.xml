@@ -1,8 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="always"
+        android:visible="false"
+        android:title="@string/menu_share"/>
+    <item
+        android:id="@+id/menu_ar"
+        android:icon="@drawable/ic_picture"
+        android:visible="false"
+        app:showAsAction="always"
+        android:title="@string/menu_ra"/>
 </menu>

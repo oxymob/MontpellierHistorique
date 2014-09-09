@@ -19,7 +19,7 @@ import fr.oxymob.montpellier.historique.utils.Functions;
  */
 public class ASplashScreen extends Activity implements NetworkCall.NetworkCallListener {
     private static final int SPLASH_SCREEN_DURATION=500;
-    private NetworkCall mNetworkCallMonuments;
+    private NetworkCall mNetworkCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,9 @@ public class ASplashScreen extends Activity implements NetworkCall.NetworkCallLi
     }
 
     private void executeNetworkCall(String fileName) {
-        mNetworkCallMonuments = new NetworkCall(getBaseContext(), fileName);
-        mNetworkCallMonuments.setListener(this);
-        mNetworkCallMonuments.fetch();
+        mNetworkCall = new NetworkCall(getBaseContext(), fileName);
+        mNetworkCall.setListener(this);
+        mNetworkCall.fetch();
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.MapsInitializer;
 import java.util.List;
 import fr.oxymob.montpellier.historique.activities.AbsNavigationActivity;
+import fr.oxymob.montpellier.historique.activities.SimpleARBrowserActivity;
 import fr.oxymob.montpellier.historique.fragments.FAbout;
 import fr.oxymob.montpellier.historique.fragments.FList;
 import fr.oxymob.montpellier.historique.fragments.FMap;
@@ -95,8 +96,8 @@ public class MainActivity extends AbsNavigationActivity {
                 break;
 
             case R.id.menu_ar:
-
-
+                intent = new Intent(this, SimpleARBrowserActivity.class);
+                startActivity(intent);
                 break;
         }
     return super.onOptionsItemSelected(item);

@@ -12,30 +12,11 @@
         <!--adSize="15"-->
         <!--appId="e35c5158bfb9441097e055b8e64ead99" />-->
 
-    <HorizontalScrollView
-        android:id="@+id/galery"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="50dp"
-        android:padding="10dp" >
-
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/galery"
         android:background="@android:color/white" >
 
         <LinearLayout

@@ -1,24 +1,21 @@
 package fr.oxymob.montpellier.historique.pojos;
 
+import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Position implements Serializable, Comparable<Position>{
-    private String fid; 						// r�f�rence
-    private String monument;					// nom du Monument
-    private double lat;						// latitude
-    private double lg;						// longitude
-    private String desc;						// contenu �ditorial - description
+    private String fid; 					// r�f�rence
+    private String monument;				// nom du Monument
+    private String desc;					// contenu �ditorial - description
     private String adresse;					// adresse du monument (ou POI)
     private double distance;
     private String epoque = "";
-    private double currentLat, currentLg;
     private String imageURL;
 	private Point point;
 
-	private class Point implements  Serializable
-	{
+	public class Point implements  Serializable {
 		private double latitude;
 		private double longitude;
 		private double altitude;
@@ -36,6 +33,10 @@ public class Position implements Serializable, Comparable<Position>{
 			object.put("altitude", this.altitude);
 			return object;
 		}
+
+        public LatLng toLatLng() {
+            return new LatLng(latitude, longitude);
+        }
 	}
 
 	public static double HaverSineDistance(double lat1, double lng1, double lat2, double lng2) {
@@ -53,13 +54,6 @@ public class Position implements Serializable, Comparable<Position>{
 
 	    return 6368000.0 * c;
 	}   
-	
-	public void init_distance(double mylat, double mylg) {
-		currentLat = mylat;
-		currentLg = mylg;
-		distance = HaverSineDistance(currentLat, currentLg, lat, lg);
-		this.point = new Point(lat, lg);
-	}
 
 	@Override
 	public int compareTo(Position another) {
@@ -76,25 +70,15 @@ public class Position implements Serializable, Comparable<Position>{
 		return object;
 	}
 
-    public void copyFromMonument(Monument monument) {
+    public void copyFromMonument(Monument monument, double userLat, double userLg) throws Exception {
         setAdresse(monument.getAdresse());
-        //pos.desc = monument.getDesc();
         setDesc(monument.getAdresses() + "Epoque : " + monument.getEpoque());
         setEpoque(monument.getEpoque());
-
-        //String descHtml = Functions.loadHtmlFromFile(monument.getDesc());
-        //if (descHtml != null) {
-        //	pos.desc = Functions.getSpan(descHtml);
-        //	pos.desc = Html.fromHtml(descHtml); //monument.getDesc();
-        //}
         setFid(monument.getFid());
-        if (monument.getLat() != null && monument.getLat() != "")
-            setLat(Double.parseDouble(monument.getLat()));
-        if (monument.getLg() != null && monument.getLg() != "")
-            setLg(Double.parseDouble(monument.getLg()));
         setMonument(monument.getMonument());
-
         setImageURI(monument.getVignetteUri());
+        setPoint(new Point(Double.parseDouble(monument.getLat()), Double.parseDouble(monument.getLg())));
+        setDistance(HaverSineDistance(getPoint().latitude, getPoint().longitude, userLat, userLg));
     }
 
 	public String toString() {
@@ -127,13 +111,7 @@ public class Position implements Serializable, Comparable<Position>{
         return monument;
     }
 
-    public double getLat() {
-        return lat;
-    }
 
-    public double getLg() {
-        return lg;
-    }
 
     public String getDesc() {
         return desc;
@@ -149,14 +127,6 @@ public class Position implements Serializable, Comparable<Position>{
 
     public String getEpoque() {
         return epoque;
-    }
-
-    public double getCurrentLat() {
-        return currentLat;
-    }
-
-    public double getCurrentLg() {
-        return currentLg;
     }
 
     public String getImageURL() {
@@ -175,13 +145,6 @@ public class Position implements Serializable, Comparable<Position>{
         this.monument = monument;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public void setLg(double lg) {
-        this.lg = lg;
-    }
 
     public void setDesc(String desc) {
         this.desc = desc;
@@ -197,14 +160,6 @@ public class Position implements Serializable, Comparable<Position>{
 
     public void setEpoque(String epoque) {
         this.epoque = epoque;
-    }
-
-    public void setCurrentLat(double currentLat) {
-        this.currentLat = currentLat;
-    }
-
-    public void setCurrentLg(double currentLg) {
-        this.currentLg = currentLg;
     }
 
     public void setImageURI(String imageURL) {

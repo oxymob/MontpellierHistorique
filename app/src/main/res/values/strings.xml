@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">Montpellier Historique</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
 

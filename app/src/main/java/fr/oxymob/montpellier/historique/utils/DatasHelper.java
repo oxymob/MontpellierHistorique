@@ -41,9 +41,12 @@ public class DatasHelper {
         for (Monument monument : getAllMonuments()) {
             if (monument != null) {
                 Position pos = new Position();
-                pos.copyFromMonument(monument);
-                pos.init_distance(lat, lg);
-                listItem.add(pos);
+                try {
+                    pos.copyFromMonument(monument, lat, lg);
+                    listItem.add(pos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         return listItem;

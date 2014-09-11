@@ -5,10 +5,10 @@ import fr.oxymob.montpellier.historique.pojos.Monument;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 public class FDescription extends Fragment {
@@ -16,7 +16,7 @@ public class FDescription extends Fragment {
     private Monument mCurrentMonument;
     public String fid;
     TextView vAddr, vName;
-    private WebView webView;
+    private TextView vContent;
 
     public static FDescription newInstance(Monument monument) {
         FDescription fragment = new FDescription();
@@ -49,12 +49,12 @@ public class FDescription extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);vAddr = (TextView) view.findViewById(R.id.address);
         vName = (TextView) view.findViewById(R.id.name);
-        webView = (WebView) view.findViewById(R.id.webview);
+        vContent = (TextView) view.findViewById(R.id.content);
         mCurrentMonument = (Monument) getArguments().get(KEY_CONTENT);
         if (mCurrentMonument != null) {
             vAddr.setText(mCurrentMonument.getAdresses());
             vName.setText(mCurrentMonument.getMonument());
-            webView.loadUrl("file:///android_asset/" + mCurrentMonument.getPageHtml());
+            vContent.setText(Html.fromHtml(mCurrentMonument.getPage()));
         }
     }
 }

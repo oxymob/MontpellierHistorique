@@ -109,11 +109,11 @@ public class FMap extends SupportMapFragment {
             if (mOnePoint!= null) {
                 if (!mOnePoint.equals(pos.getFid()))
                     continue;
-                posOnePoint = new LatLng(pos.getLat(), pos.getLg());
+                posOnePoint = pos.getPoint().toLatLng();
             }
 
             MarkerOptions opt = new MarkerOptions()
-                    .position(new LatLng(pos.getLat(), pos.getLg()))
+                    .position(pos.getPoint().toLatLng())
                     .title(pos.getMonument())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                     .snippet(pos.getAdresse());

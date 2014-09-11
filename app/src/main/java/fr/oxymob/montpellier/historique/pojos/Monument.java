@@ -6,20 +6,21 @@ import fr.oxymob.montpellier.historique.utils.NetworkCall;
 import com.google.gson.annotations.SerializedName;
 
 public class Monument implements Serializable {
-    @SerializedName("id") private String fid; 						// r�f�rence
-    @SerializedName("nom") private String monument;					// nom du Monument
-    @SerializedName("classement") private String protection;		// type de protection
-    @SerializedName("merimee") private String noticemh;				// r�f�rence MH
-    @SerializedName("desc") private String descmh;					// quels sont les �l�ments prot�g�s ?
-    @SerializedName("adr1") private String adresse;					// adresse du monument (ou POI)
-    @SerializedName("adr2") private String adresse2;				// adresse du monument (ou POI)
-    @SerializedName("adr3") private String adresse3;				// adresse du monument (ou POI)
-    @SerializedName("date") private String date;					// date de classement
-    @SerializedName("lat") private String lat;						// latitude
-    @SerializedName("lg") private String lg;						// longitude
-    @SerializedName("epoque") private String epoque;
-    @SerializedName("wikipedia") private String urlwikipedia;
-    @SerializedName("pic") private String vignette;
+    @SerializedName("FID") private String fid; 						// r�f�rence
+    @SerializedName("MONUMENT") private String monument;					// nom du Monument
+    @SerializedName("PROTECTION") private String protection;		// type de protection
+    @SerializedName("NOTICEMH") private String noticemh;				// r�f�rence MH
+    @SerializedName("PAGEHTML") private String page;				// r�f�rence MH
+    @SerializedName("ELEMENTSPROTEGES") private String descmh;					// quels sont les �l�ments prot�g�s ?
+    @SerializedName("ADRESSE1") private String adresse;					// adresse du monument (ou POI)
+    @SerializedName("ADRESSE2") private String adresse2;				// adresse du monument (ou POI)
+    @SerializedName("ADRESSE3") private String adresse3;				// adresse du monument (ou POI)
+    @SerializedName("DATE") private String date;					// date de classement
+    @SerializedName("LAT") private String lat;						// latitude
+    @SerializedName("LG") private String lg;						// longitude
+    @SerializedName("EPOQUECONSTRUCTION") private String epoque;
+    @SerializedName("WIKIPEDIA") private String urlwikipedia;
+    @SerializedName("VIGNETTES") private String vignette;
 	private String datemodif;				// SAISIE SUR PLACE : date de modif de l'enregistrement
 	private String notes;					// SAISIE SUR PLACE : notes ajout�es � la fiche
     private String noticeinventaire;			// SAISIE SUR PLACE : note inventaire MH
@@ -43,6 +44,7 @@ public class Monument implements Serializable {
 		return sb.toString();
 	}
 
+    public String getPage() { return page;  }
 	public String getFid() {
 		return fid;
 	}

@@ -72,7 +72,7 @@ public class Position implements Serializable, Comparable<Position>{
 
     public void copyFromMonument(Monument monument, double userLat, double userLg) throws Exception {
         setAdresse(monument.getAdresse());
-        setDesc(monument.getAdresses() + "Epoque : " + monument.getEpoque());
+        setDesc(monument.getAdresse() + "\n" + monument.getEpoque());
         setEpoque(monument.getEpoque());
         setFid(monument.getFid());
         setMonument(monument.getMonument());

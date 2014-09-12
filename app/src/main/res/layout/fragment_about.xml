@@ -40,21 +40,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:src="@drawable/infos_1"/>
+            android:src="@drawable/mdm"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:src="@drawable/infos_2"/>
+            android:src="@drawable/mtn"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:src="@drawable/infos_3"/>
+            android:src="@drawable/um3"/>
 
     </LinearLayout>
 </ScrollView>

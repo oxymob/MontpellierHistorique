@@ -20,4 +20,7 @@
         Les fiches ont été complétées en partenariat avec la facultée Paul Valery (UM3). \n
         Les contenus sont enrichis grâce à la base Mérimée et Wikipédia.</string>
     <string name="infos_text_1">Partenaires</string>
+    <string name="description">Description</string>
+    <string name="position">Position</string>
+    <string name="image">Image</string>
 </resources>

@@ -5,16 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-import fr.oxymob.montpellier.historique.MontpellierHistorique;
 import fr.oxymob.montpellier.historique.R;
 import fr.oxymob.montpellier.historique.fragments.FDescription;
 import fr.oxymob.montpellier.historique.fragments.FMap;
 import fr.oxymob.montpellier.historique.fragments.FPicture;
-import fr.oxymob.montpellier.historique.fragments.FWebView;
 import fr.oxymob.montpellier.historique.pojos.Monument;
 import fr.oxymob.montpellier.historique.pojos.Photo;
 import fr.oxymob.montpellier.historique.utils.DatasHelper;
@@ -78,20 +74,13 @@ public class ADetail extends AbsActionBarActivity {
 
         private void initFragments() {
             mListPages =new ArrayList<Page>();
-            mListPages.add(new Page("Description", FDescription.newInstance(mCurrentMonument)));
-            mListPages.add(new Page("Position", FMap.newInstance(mDatasHelper.getAllPosition(), mCurrentMonument.getFid())));
+            mListPages.add(new Page(getString(R.string.description), FDescription.newInstance(mCurrentMonument)));
+            mListPages.add(new Page(getString(R.string.position), FMap.newInstance(mDatasHelper.getAllPosition(), mCurrentMonument.getFid())));
             int i = 1;
             for (Photo photo:mListPictures) {
-                mListPages.add(new Page("Image " + i++, FPicture.newInstance(photo)));
+                mListPages.add(new Page(getString(R.string.image) + " " + i++, FPicture.newInstance(photo)));
             }
-            //merimeeFrag = FWebView.newInstance(MontpellierHistorique.LIEN_MERIMEE + mCurrentMonument.getNoticemh());
-
-          /*  if (!TextUtils.isEmpty(mCurrentMonument.getUrlwikipedia())) {
-                //wikiFrag = FWebView.newInstance(mCurrentMonument.getUrlwikipedia());
-                mPagesTab = new String[] { "Description", "Position", "Mérimée", "Wikipedia"};
-            } else
-                mPagesTab = new String[] { "Description", "Position", "Mérimée"};*/
-        }
+         }
 
         @Override
         public Fragment getItem(int position) {

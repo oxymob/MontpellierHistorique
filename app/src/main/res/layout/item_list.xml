@@ -2,53 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:padding="5dp"
+    android:orientation="horizontal" >
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/item_image"
+        android:layout_height="@dimen/item_image"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal" >
+        android:layout_marginLeft="10dip"
+        android:orientation="vertical" >
 
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/item_image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dip"
-            android:scaleType="fitXY" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:orientation="vertical" >
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-            <TextView
-                android:id="@+id/item_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nom du monument"
-                android:textAppearance="?android:attr/textAppearanceListItem"/>
+        <TextView
+            android:id="@+id/item_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
-            <TextView
-                android:id="@+id/item_desc"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:lines="2"
-                android:text="nter haec Orfitus praefecti potestate regebat urbem aeternam ultra modum delatae dignitatis sese efferens insolenter, vir quidem prudens et forensium negotiorum oppido gnarus, sed splendore liberalium doctrinarum minus quam nobilem decuerat institutus, quo administrante seditio"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
-
-            <TextView
-                android:id="@+id/item_distance"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:singleLine="true"
-                android:text="distance m"
-                android:textColor="@color/bleu"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/item_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/bleu"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
-
 </LinearLayout>
+

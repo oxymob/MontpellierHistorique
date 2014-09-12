@@ -100,6 +100,6 @@ public class MainActivity extends AbsNavigationActivity {
                 startActivity(intent);
                 break;
         }
-    return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 }

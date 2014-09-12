@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 import fr.oxymob.montpellier.historique.pojos.Monument;
+import fr.oxymob.montpellier.historique.pojos.Photo;
 import fr.oxymob.montpellier.historique.pojos.Position;
 
 /**
@@ -16,6 +17,8 @@ public class DatasHelper {
     private Context mContext;
     private List<Monument> mMonumentList;
     public static final String FILE_MONUMENTS = "monuments.json";
+    public static final String FILE_PHOTOS = "photos.json";
+    private  List<Photo> mPhotoList;
 
     public DatasHelper(Context mContext) {
         this.mContext = mContext;
@@ -31,6 +34,28 @@ public class DatasHelper {
             }.getType());
         } else
             return mMonumentList;
+    }
+
+    public List<Photo> getAllPhotos() {
+        if (mPhotoList == null) {
+            String jsonText = Functions.openFile(mContext, FILE_PHOTOS);
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+            Gson gson = gsonBuilder.create();
+            return gson.fromJson(jsonText, new TypeToken<List<Photo>>() {}.getType());
+        } else
+            return mPhotoList;
+    }
+
+    public List<Photo> getAllPhotosByFid(String fid) {
+        ArrayList<Photo> listItem = new ArrayList<Photo>();
+
+        for (Photo photo:getAllPhotos()) {
+           if (photo == null) continue;
+            if (photo.getFid().equals(fid))
+                listItem.add(photo);
+        }
+        return listItem;
     }
 
     public ArrayList<Position> getAllPosition() {

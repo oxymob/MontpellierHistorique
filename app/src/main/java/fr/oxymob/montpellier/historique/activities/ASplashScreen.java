@@ -33,6 +33,8 @@ public class ASplashScreen extends Activity implements NetworkCall.NetworkCallLi
        } else {
             if (!Functions.fileExists(getBaseContext(), DatasHelper.FILE_MONUMENTS))
                 executeNetworkCall(DatasHelper.FILE_MONUMENTS);
+            else if (!Functions.fileExists(getBaseContext(), DatasHelper.FILE_PHOTOS))
+                executeNetworkCall(DatasHelper.FILE_PHOTOS);
             else
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -57,7 +59,10 @@ public class ASplashScreen extends Activity implements NetworkCall.NetworkCallLi
 
     @Override
     public void onFileDownloaded(String fileName) {
-        callMainActivity();
+        if (!Functions.fileExists(getBaseContext(), DatasHelper.FILE_PHOTOS))
+            executeNetworkCall(DatasHelper.FILE_PHOTOS);
+        if (fileName.equals(DatasHelper.FILE_PHOTOS))
+            callMainActivity();
     }
 
     @Override

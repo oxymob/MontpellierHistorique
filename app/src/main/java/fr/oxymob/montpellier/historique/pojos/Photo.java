@@ -1,129 +1,68 @@
 package fr.oxymob.montpellier.historique.pojos;
 
-import android.net.Uri;
-import fr.oxymob.montpellier.historique.utils.Functions;
+import android.content.Context;
+import android.text.TextUtils;
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+import fr.oxymob.montpellier.historique.R;
+import fr.oxymob.montpellier.historique.utils.NetworkCall;
 
-public class Photo {
+public class Photo implements Serializable {
+    @SerializedName("FID") private String fid;
+    @SerializedName("IDPIC") private String path;
+    @SerializedName("URL") private String url;
+   @SerializedName("AUTEUR") private String auteur;
+    @SerializedName("SOURCE") private String source;
+    @SerializedName("URLSOURCE") private String url_source;
+    @SerializedName("LICENCE") private String licence;
+    @SerializedName("TAILLE") private String taille;
 
-	private String path;
-	private Monument monument;
-	private String url;
-	private String auteur;
-	private String source;
-	private String url_source;
-	private String licence;
-	private String taille;
+    public String getFid() {
+        return fid;
+    }
+    public String getAuteur() {
+        return auteur;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getSource() {
+        return source;
+    }
 
-	public String getCreditPhoto() {
+    public String getLicence() {
+        return licence;
+    }
+
+    public String getUri() {
+        return NetworkCall.PATH + path + ".jpg";
+    }
+
+    public static String getCreditPhoto(Context context, Photo photo) {
 		StringBuilder sb = new StringBuilder();
-		if (auteur != null && !auteur.equals("")) 
-			sb.append(auteur).append("\n");
-		if (source != null && !source.equals("")) 
-			sb.append("Source").append(" : ").append(source).append("\n");
-		if (licence != null && !licence.equals("")) 
-			sb.append("Licence").append(" : ").append(licence).append("\n");
-		if (url_source != null && !url_source.equals("")) 
-			sb.append("Url").append(" : ").append(url_source).append("\n");
+		if (!TextUtils.isEmpty(photo.getAuteur()))
+            sb.append(context.getString(R.string.auteur)).append(" : ").append(photo.getAuteur()).append("\n");
+        if (!TextUtils.isEmpty(photo.getSource()))
+			sb.append(context.getString(R.string.source)).append(" : ").append(photo.getSource()).append("\n");
+        if (!TextUtils.isEmpty(photo.getLicence()))
+			sb.append(context.getString(R.string.licence)).append(" : ").append(photo.getLicence());
+		//if (url_source != null && !url_source.equals(""))
+		//	sb.append("Url").append(" : ").append(url_source).append("\n");
 
 		return sb.toString();
-	}
-	public Uri getUri() {
-		Uri uri = null;
-
-		//if ((path != null) && (path.length()) > 0) {
-		//	String str = AssetsProvider.CONTENT_URI + path;
-			uri = Uri.parse(path);
-
-		return uri;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getAuteur() {
-		return auteur;
-	}
-	public void setAuteur(String auteur) {
-		this.auteur = auteur;
-	}
-	public String getSource() {
-		return source;
-	}
-	public void setSource(String source) {
-		this.source = source;
-	}
-	public String getUrl_source() {
-		return url_source;
-	}
-	public void setUrl_source(String url_source) {
-		this.url_source = url_source;
-	}
-	public String getLicence() {
-		return licence;
-	}
-	public void setLicence(String licence) {
-		this.licence = licence;
-	}
-	public String getTaille() {
-		return taille;
-	}
-	public void setTaille(String taille) {
-		this.taille = taille;
-	}
-	public static Photo fromTextLine(String line) {
-		String tokens[] = Functions.splitTotokens(line, "|");
-
-		Photo newPhoto = new Photo();
-		String id_mon = tokens[0];
-		//newPhoto.monument = MonumentController.getInstance().queryForId(id_mon);
-		//newPhoto.fid = tokens[0];
-		newPhoto.path = tokens[1] + ".jpg";
-		newPhoto.url = tokens[2];
-		newPhoto.auteur = tokens[3];
-		newPhoto.source = tokens[4];
-		newPhoto.url_source = tokens[5];
-		newPhoto.licence = tokens[6];
-		if (tokens.length > 7)
-			newPhoto.taille = tokens[7];
-
-		/*try {
-			if (!Functions.isAssetFileExist(newPhoto.path))
-				return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-		return newPhoto;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("-PHOTOS-------\n");
-		sb.append("fid").append(" : ").append(monument.getFid()).append("\n");
-		sb.append("path").append(" : ").append(path).append("\n");
-		sb.append("url").append(" : ").append(url).append("\n");
-		sb.append("auteur").append(" : ").append(auteur).append("\n");
-		sb.append("source").append(" : ").append(source).append("\n");
-		sb.append("url_source").append(" : ").append(url_source).append("\n");
-		sb.append("licence").append(" : ").append(licence).append("\n");
-		sb.append("taille").append(" : ").append(taille).append("\n");
+		sb.append("FID").append(" : ").append(getFid()).append("\n");
+		sb.append("IDPIC").append(" : ").append(path).append("\n");
+		sb.append("URL").append(" : ").append(url).append("\n");
+		sb.append("AUTEUR").append(" : ").append(auteur).append("\n");
+		sb.append("SOURCE").append(" : ").append(source).append("\n");
+		sb.append("URLSOURCE").append(" : ").append(url_source).append("\n");
+		sb.append("LICENCE").append(" : ").append(licence).append("\n");
+		sb.append("TAILLE").append(" : ").append(taille).append("\n");
 
 		return sb.toString();
 	}
-	public void setMonument(Monument monument) {
-		this.monument = monument;
-	}
-	public Monument getMonument() {
-		return monument;
-	}
-
 }

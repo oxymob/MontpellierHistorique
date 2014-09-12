@@ -1,5 +1,7 @@
 package fr.oxymob.montpellier.historique.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import fr.oxymob.montpellier.historique.R;
+import fr.oxymob.montpellier.historique.activities.ADetail;
 import fr.oxymob.montpellier.historique.pojos.Position;
 
 /**
@@ -84,17 +87,26 @@ public class FMap extends SupportMapFragment {
         getMap().setMyLocationEnabled(true);
         getMap().setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (mOnePoint == null)
-            getMap().setOnInfoWindowClickListener(listener);
+            getMap().setOnInfoWindowClickListener(listenerDetail);
+        else
+            getMap().setOnInfoWindowClickListener(listenerNav);
     }
 
-    private GoogleMap.OnInfoWindowClickListener listener = new GoogleMap.OnInfoWindowClickListener() {
+    private GoogleMap.OnInfoWindowClickListener listenerNav = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker arg0) {
-           /* Intent intent = new Intent();
-            intent.setClass(MHMapFragment.this.getActivity(), Fiche.class);
-            MyMarker m = markerMap.get(arg0);
-            intent.putExtra("EXTRA_ID", m.fid);
-            startActivity(intent);*/
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + posOnePoint.latitude + "," + posOnePoint.longitude +"&mode=w"));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    };
+
+    private GoogleMap.OnInfoWindowClickListener listenerDetail = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker arg0) {
+            Intent intent = new Intent(getActivity(), ADetail.class);
+            intent.putExtra("EXTRA_ID", markerMap.get(arg0).fid);
+            startActivity(intent);
         }
     };
 

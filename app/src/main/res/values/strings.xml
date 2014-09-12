@@ -12,6 +12,12 @@
     <string name="do_you_want_to_quit">Souhaitez-vous quitter l\'application ?</string>
     <string name="menu_share">Partager</string>
     <string name="menu_ra">Réalité augmentée</string>
-
-
+    <string name="auteur">Auteur</string>
+    <string name="source">Source</string>
+    <string name="licence">Licence</string>
+    <string name="picture_loading">Photo en cours de chargement...</string>
+    <string name="infos_text_0">Application développée à partir des Données Publiques ouvertes par la ville de Montpellier et soutenue dans le cadre de Montpellier-Innovation.\n
+        Les fiches ont été complétées en partenariat avec la facultée Paul Valery (UM3). \n
+        Les contenus sont enrichis grâce à la base Mérimée et Wikipédia.</string>
+    <string name="infos_text_1">Partenaires</string>
 </resources>

@@ -1,4 +1,4 @@
-package fr.oxymob.montpellier.historique.activities;
+package fr.oxymob.montpellier.historique.abstracts;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

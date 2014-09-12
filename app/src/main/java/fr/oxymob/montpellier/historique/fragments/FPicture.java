@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import fr.oxymob.montpellier.historique.MontpellierHistorique;
@@ -14,6 +16,9 @@ import fr.oxymob.montpellier.historique.pojos.Photo;
 public class FPicture extends Fragment {
     private static final String KEY_CONTENT = "FPicture:Content";
     private Photo mPicture;
+    private View vOverlay;
+    private NetworkImageView vImage;
+    private TextView vDescImage;
 
     public static FPicture newInstance(Photo picture) {
         FPicture fragment = new FPicture();
@@ -33,10 +38,41 @@ public class FPicture extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser){
+        if (isVisibleToUser)
+            openPanel(vOverlay);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_CONTENT, mPicture);
     }
+
+    public void openPanel(View view) {
+        if (view.getVisibility() == View.VISIBLE)
+            return;
+        Animation animParams = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f);
+        animParams.setDuration(500);
+        view.setVisibility(View.VISIBLE);
+        view.startAnimation(animParams);
+    }
+
+    public void closePanel(View view) {
+        Animation animParams = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f);
+        animParams.setDuration(500);
+        view.setVisibility(View.GONE);
+        view.startAnimation(animParams);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,9 +82,16 @@ public class FPicture extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NetworkImageView vImage = (NetworkImageView) view.findViewById(R.id.image);
-        TextView vDescImage = (TextView) view.findViewById(R.id.desc_image);
+        vImage = (NetworkImageView) view.findViewById(R.id.image);
         vImage.setImageUrl(mPicture.getUri(), MontpellierHistorique.getInstance().getVolleyImageLoader());
+        vDescImage = (TextView) view.findViewById(R.id.desc_image);
         vDescImage.setText(Photo.getCreditPhoto(getActivity(), mPicture));
+        view.findViewById(R.id.bt_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closePanel(vOverlay);
+            }
+        });
+        vOverlay = view.findViewById(R.id.overlay_container);
     }
 }

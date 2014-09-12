@@ -46,9 +46,9 @@ import fr.oxymob.montpellier.historique.utils.DatasHelper;
  * 	Please also have a look at the application's Manifest and layout xml-file to see the permissions and requirements 
  * 	an activity using the SDK has to possess. (REF: ARchitect Documentation)		  	  
  */
-public class SimpleARBrowserActivity extends Activity implements ArchitectUrlListener, LocationListener{
+public class ASimpleARBrowser extends Activity implements ArchitectUrlListener, LocationListener{
 
-	private static final String TAG = SimpleARBrowserActivity.class.getSimpleName();
+	private static final String TAG = ASimpleARBrowser.class.getSimpleName();
 
 	/*private final static float  TEST_LATITUDE =  43.61f;
 	private final static float  TEST_LONGITUDE = 3.88f;

@@ -1,7 +1,6 @@
-package fr.oxymob.montpellier.historique.activities;
+package fr.oxymob.montpellier.historique.abstracts;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -78,7 +77,7 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
 
         mTitles = getResources().getStringArray(R.array.flyin_menu_titles);
 
-        vDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mTitles));
+        vDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_fyin, mTitles));
 	}
 
     protected void openNavFragment(android.support.v4.app.Fragment fragment) {
@@ -160,7 +159,7 @@ public abstract class AbsNavigationActivity extends AbsActionBarActivity  {
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 		if (savedInstanceState == null) {
-            selectNavItem(0);
+            selectNavItem(1);
         }
 	}
 

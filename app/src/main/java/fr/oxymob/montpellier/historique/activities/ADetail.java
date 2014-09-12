@@ -1,13 +1,22 @@
 package fr.oxymob.montpellier.historique.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.webkit.URLUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+import fr.oxymob.montpellier.historique.MontpellierHistorique;
 import fr.oxymob.montpellier.historique.R;
+import fr.oxymob.montpellier.historique.abstracts.AbsActionBarActivity;
 import fr.oxymob.montpellier.historique.fragments.FDescription;
 import fr.oxymob.montpellier.historique.fragments.FMap;
 import fr.oxymob.montpellier.historique.fragments.FPicture;
@@ -62,6 +71,37 @@ public class ADetail extends AbsActionBarActivity {
         mViewPager.setAdapter(mTabsAdapter);
         setTitle(mCurrentMonument.getMonument());
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (TextUtils.isEmpty(mCurrentMonument.getUrlwikipedia()) ||
+                !URLUtil.isValidUrl(mCurrentMonument.getUrlwikipedia()))
+            menu.findItem(R.id.menu_wikipedia).setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        switch (item.getItemId()) {
+            case R.id.menu_wikipedia:
+                i.setData(Uri.parse(mCurrentMonument.getUrlwikipedia()));
+                startActivity(i);
+                break;
+            case R.id.menu_merimee:
+                i.setData(Uri.parse(MontpellierHistorique.LIEN_MERIMEE + mCurrentMonument.getNoticemh()));
+                startActivity(i);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     class TabsAdapter extends FragmentPagerAdapter {
 

@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.MapsInitializer;
 import java.util.List;
-import fr.oxymob.montpellier.historique.activities.AbsNavigationActivity;
-import fr.oxymob.montpellier.historique.activities.SimpleARBrowserActivity;
+import fr.oxymob.montpellier.historique.abstracts.AbsNavigationActivity;
+import fr.oxymob.montpellier.historique.activities.ASimpleARBrowser;
 import fr.oxymob.montpellier.historique.fragments.FAbout;
 import fr.oxymob.montpellier.historique.fragments.FList;
 import fr.oxymob.montpellier.historique.fragments.FMap;
@@ -85,18 +85,12 @@ public class MainActivity extends AbsNavigationActivity {
             case R.id.menu_share:
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Une application sur les monuments historiques de Montpellier !");
-                String content = "Bonjour," + "\n\n";
-                content += "Je viens de tester cette nouvelle application, Montpellier Historique. \n" +
-                        "Application développée à partir des Données Publiques ouvertes par la ville de Montpellier et soutenue dans le cadre de Montpellier-Innovation. " +
-                        "L'application est téléchargeable sur Google Play : https://play.google.com/store/apps/details?fr.oxymob.montpellier.historique";
-                intent.putExtra(Intent.EXTRA_TEXT, content);
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text));
                 startActivity(intent);
-
                 break;
-
             case R.id.menu_ar:
-                intent = new Intent(this, SimpleARBrowserActivity.class);
+                intent = new Intent(this, ASimpleARBrowser.class);
                 startActivity(intent);
                 break;
         }

@@ -21,12 +21,28 @@
         android:layout_margin="10dp"
         android:scaleType="fitCenter" />
 
-    <TextView
-        android:id="@+id/desc_image"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/overlay_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/blanc_transparent"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/bt_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_offline"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:id="@+id/desc_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+    </RelativeLayout>
 </RelativeLayout>
 

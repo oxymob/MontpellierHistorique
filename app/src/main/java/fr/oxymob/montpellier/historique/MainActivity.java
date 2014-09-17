@@ -11,7 +11,6 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.MapsInitializer;
 import java.util.List;
 import fr.oxymob.montpellier.historique.abstracts.AbsNavigationActivity;
-import fr.oxymob.montpellier.historique.activities.ASimpleARBrowser;
 import fr.oxymob.montpellier.historique.fragments.FAbout;
 import fr.oxymob.montpellier.historique.fragments.FList;
 import fr.oxymob.montpellier.historique.fragments.FMap;

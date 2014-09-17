@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import fr.oxymob.montpellier.historique.pojos.Monument;
 import fr.oxymob.montpellier.historique.pojos.Photo;
@@ -74,6 +75,7 @@ public class DatasHelper {
                 }
             }
         }
+        Collections.sort(listItem);
         return listItem;
     }
 

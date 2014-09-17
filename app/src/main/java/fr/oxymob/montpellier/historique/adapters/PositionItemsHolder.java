@@ -17,6 +17,6 @@ public class PositionItemsHolder extends AbstractViewHolder<Position> {
 
 		if (content.getImageURL() != null)
 			((NetworkImageView) get(R.id.item_image).getView()).setImageUrl(content.getImageURL(), MontpellierHistorique.getInstance().getVolleyImageLoader());
-        ((NetworkImageView) get(R.id.item_image).getView()).setDefaultImageResId(R.drawable.ic_launcher);
+        ((NetworkImageView) get(R.id.item_image).getView()).setDefaultImageResId(R.drawable.icon_mh);
 	}
 }

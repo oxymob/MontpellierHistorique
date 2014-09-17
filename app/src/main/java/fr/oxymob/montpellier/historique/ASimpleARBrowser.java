@@ -1,4 +1,4 @@
-package fr.oxymob.montpellier.historique.activities;
+package fr.oxymob.montpellier.historique;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,7 +20,8 @@ import android.widget.Toast;
 
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
-import fr.oxymob.montpellier.historique.R;
+
+import fr.oxymob.montpellier.historique.activities.ADetail;
 import fr.oxymob.montpellier.historique.pojos.Position;
 import fr.oxymob.montpellier.historique.utils.DatasHelper;
 
@@ -110,7 +111,7 @@ public class ASimpleARBrowser extends Activity implements ArchitectUrlListener, 
 		this.architectView.onResume();
 		if (loc != null)
 			this.architectView.setLocation((float)(loc.getLatitude()), (float)(loc.getLongitude()), loc.getAccuracy());
-		architectView.setCullingDistance(50.0f);
+		architectView.setCullingDistance(1050.0f);
 		//this.architectView.setLocation(TEST_LATITUDE, TEST_LONGITUDE, TEST_ALTITUDE,1f);
 	}
 

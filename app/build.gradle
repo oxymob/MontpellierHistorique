@@ -8,13 +8,13 @@ android {
         applicationId "fr.oxymob.montpellier.historique"
         minSdkVersion 14
         targetSdkVersion 20
-        versionCode 1
-        versionName "1.0"
+        versionCode 20
+        versionName "2.0"
     }
 
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

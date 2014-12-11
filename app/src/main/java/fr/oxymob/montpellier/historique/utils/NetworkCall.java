@@ -50,8 +50,6 @@ public class NetworkCall {
                     Functions.downloadFile(mContext, urls[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    if (mListener != null)
-                        mListener.onError();
                 }
             }
             return totalSize;

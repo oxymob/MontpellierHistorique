@@ -5,7 +5,7 @@
     android:padding="5dp"
     android:orientation="horizontal" >
 
-    <com.android.volley.toolbox.NetworkImageView
+    <ImageView
         android:id="@+id/item_image"
         android:layout_width="@dimen/item_image"
         android:layout_height="@dimen/item_image"

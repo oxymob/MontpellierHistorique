@@ -28,5 +28,6 @@
     <string name="image">Image</string>
     <string name="share_title">Une application sur les monuments historiques de Montpellier !</string>
     <string name="share_text">Bonjour,\n\nJe viens de tester cette nouvelle application, Montpellier Historique. \nApplication développée à partir des Données Publiques ouvertes par la ville de Montpellier et soutenue dans le cadre de Montpellier-Innovation. L\'application est téléchargeable sur Google Play : https://play.google.com/store/apps/details?fr.oxymob.montpellier.historique</string>
+    <string name="merimee"><![CDATA[http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=]]></string>
 
 </resources>

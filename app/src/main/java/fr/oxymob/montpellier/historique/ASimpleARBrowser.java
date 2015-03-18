@@ -96,9 +96,11 @@ public class ASimpleARBrowser extends Activity implements ArchitectUrlListener, 
 			this.architectView.onPostCreate();
 
 		//register this activity as handler of "architectsdk://" urls
-		this.architectView.registerUrlListener(this);
+        if (this.architectView != null) {
+            this.architectView.registerUrlListener(this);
+        }
 
-		try {
+        try {
 			loadWorld();
 		} catch (IOException e) {
 			e.printStackTrace();

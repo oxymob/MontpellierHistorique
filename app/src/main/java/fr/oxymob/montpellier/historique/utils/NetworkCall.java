@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import fr.oxymob.montpellier.historique.utils.Functions;
 
 /**
  * Created by dany on 05/09/14.
@@ -43,11 +42,10 @@ public class NetworkCall {
 
     private class DownloadFilesTask extends AsyncTask<String, Void, Long> {
         protected Long doInBackground(String... urls) {
-            int count = urls.length;
             long totalSize = 0;
-            for (int i = 0; i < count; i++) {
+            for (String url : urls) {
                 try {
-                    Functions.downloadFile(mContext, urls[i]);
+                    Functions.downloadFile(mContext, url);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

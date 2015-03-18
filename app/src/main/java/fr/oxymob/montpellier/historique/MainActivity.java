@@ -3,49 +3,31 @@ package fr.oxymob.montpellier.historique;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.MapsInitializer;
-import java.util.List;
 import fr.oxymob.montpellier.historique.abstracts.AbsNavigationActivity;
 import fr.oxymob.montpellier.historique.fragments.FAbout;
 import fr.oxymob.montpellier.historique.fragments.FList;
 import fr.oxymob.montpellier.historique.fragments.FMap;
-import fr.oxymob.montpellier.historique.pojos.Monument;
 import fr.oxymob.montpellier.historique.utils.DatasHelper;
 
 public class MainActivity extends AbsNavigationActivity {
 
     private static final String KEY_CONTENT = "mContent";
-    private List<Monument> listMonument;
     private DatasHelper datasHelper;
     private Fragment mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            MapsInitializer.initialize(getApplicationContext());
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
+        MapsInitializer.initialize(getApplicationContext());
         if (savedInstanceState != null) {
             //Restore the fragment's instance
             mContent = getSupportFragmentManager().getFragment(savedInstanceState, KEY_CONTENT);
         }
         setContentView(R.layout.activity_main);
         datasHelper = new DatasHelper(this);
-    }
-
-    public void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame, fragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -79,7 +61,6 @@ public class MainActivity extends AbsNavigationActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
         switch (item.getItemId()) {
             case R.id.menu_share:
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);

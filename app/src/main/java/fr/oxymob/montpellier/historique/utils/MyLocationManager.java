@@ -1,6 +1,5 @@
 package fr.oxymob.montpellier.historique.utils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Observable;
@@ -42,13 +41,11 @@ public class MyLocationManager extends Observable implements LocationListener {
 
 	private void forceUpdateLocation() {
 		Location location = null;
-		Iterator<String> i = providers.iterator();
-		while(i.hasNext()){
-			String provider = (String) i.next();
-			location = mlocManager.getLastKnownLocation(provider);
-			if (location!=null)
-				break;
-		}
+        for (String provider : providers) {
+            location = mlocManager.getLastKnownLocation(provider);
+            if (location != null)
+                break;
+        }
 
 		if (location != null) {
 			setLat(location.getLatitude());

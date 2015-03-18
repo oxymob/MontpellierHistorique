@@ -31,8 +31,6 @@ public class ADetail extends AbsActionBarActivity {
     public static final java.lang.String KEY_EXTRAS = "EXTRA_ID";
     private String mFid;
     private Monument mCurrentMonument;
-    private ViewPager mViewPager;
-    private TabsAdapter mTabsAdapter;
     private DatasHelper mDatasHelper;
     private List<Photo> mListPictures;
     private class Page {
@@ -42,10 +40,6 @@ public class ADetail extends AbsActionBarActivity {
         Page(String title, Fragment fragment) {
             this.title = title;
             this.fragment = fragment;
-        }
-
-        public Fragment getFragment() {
-            return fragment;
         }
 
         public String getTitle() {
@@ -61,13 +55,13 @@ public class ADetail extends AbsActionBarActivity {
             mFid = extras.getString(KEY_EXTRAS);
 
         setContentView(R.layout.activity_details);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         mDatasHelper = new DatasHelper(this);
         mCurrentMonument = mDatasHelper.getMonument(mFid);
         mListPictures = mDatasHelper.getAllPhotosByFid(mFid);
 
-        mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
+        TabsAdapter mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mTabsAdapter);
         setTitle(mCurrentMonument.getMonument());
     }
@@ -113,7 +107,7 @@ public class ADetail extends AbsActionBarActivity {
         }
 
         private void initFragments() {
-            mListPages =new ArrayList<Page>();
+            mListPages =new ArrayList<>();
             mListPages.add(new Page(getString(R.string.description), FDescription.newInstance(mCurrentMonument)));
             mListPages.add(new Page(getString(R.string.position), FMap.newInstance(mDatasHelper.getAllPosition(), mCurrentMonument.getFid())));
             int i = 1;

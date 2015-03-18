@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
-import com.android.volley.toolbox.NetworkImageView;
-import fr.oxymob.montpellier.historique.MontpellierHistorique;
+
+import com.squareup.picasso.Picasso;
+
 import fr.oxymob.montpellier.historique.R;
 import fr.oxymob.montpellier.historique.pojos.Photo;
 
@@ -17,8 +19,6 @@ public class FPicture extends Fragment {
     private static final String KEY_CONTENT = "FPicture:Content";
     private Photo mPicture;
     private View vOverlay;
-    private NetworkImageView vImage;
-    private TextView vDescImage;
 
     public static FPicture newInstance(Photo picture) {
         FPicture fragment = new FPicture();
@@ -82,9 +82,9 @@ public class FPicture extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        vImage = (NetworkImageView) view.findViewById(R.id.image);
-        vImage.setImageUrl(mPicture.getUri(), MontpellierHistorique.getInstance().getVolleyImageLoader());
-        vDescImage = (TextView) view.findViewById(R.id.desc_image);
+        ImageView vImage = (ImageView) view.findViewById(R.id.image);
+        Picasso.with(getActivity()).load(mPicture.getUri()).placeholder(R.drawable.icon_mh).error(R.drawable.icon_mh).into(vImage);
+        TextView vDescImage = (TextView) view.findViewById(R.id.desc_image);
         vDescImage.setText(Photo.getCreditPhoto(getActivity(), mPicture));
         view.findViewById(R.id.bt_close).setOnClickListener(new View.OnClickListener() {
             @Override

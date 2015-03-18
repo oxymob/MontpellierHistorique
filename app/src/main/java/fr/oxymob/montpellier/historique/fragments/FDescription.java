@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 public class FDescription extends Fragment {
     private static final String KEY_CONTENT = "FDescription:Content";
-    private Monument mCurrentMonument;
     public String fid;
     TextView vAddr, vName;
-    private TextView vContent;
 
     public static FDescription newInstance(Monument monument) {
         FDescription fragment = new FDescription();
@@ -49,8 +47,8 @@ public class FDescription extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);vAddr = (TextView) view.findViewById(R.id.address);
         vName = (TextView) view.findViewById(R.id.name);
-        vContent = (TextView) view.findViewById(R.id.content);
-        mCurrentMonument = (Monument) getArguments().get(KEY_CONTENT);
+        TextView vContent = (TextView) view.findViewById(R.id.content);
+        Monument mCurrentMonument = (Monument) getArguments().get(KEY_CONTENT);
         if (mCurrentMonument != null) {
             vAddr.setText(mCurrentMonument.getAdresses());
             vName.setText(mCurrentMonument.getMonument());

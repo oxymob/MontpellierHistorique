@@ -56,5 +56,12 @@
             android:layout_margin="10dp"
             android:src="@drawable/um3"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:src="@drawable/ant_robot"/>
+
     </LinearLayout>
 </ScrollView>

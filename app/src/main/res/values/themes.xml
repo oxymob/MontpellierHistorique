@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:textViewStyle">@style/TextView</item>
         <item name="android:textAppearance">@style/TextAppearance.Medium</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
@@ -13,6 +13,7 @@
         <item name="android:textAppearanceLargeInverse">@style/TextAppearance.Large.Inverse</item>
         <item name="android:textAppearanceMediumInverse">@style/TextAppearance.Medium.Inverse</item>
         <item name="android:textAppearanceSmallInverse">@style/TextAppearance.Small.Inverse</item>
+        <item name="android:selectableItemBackground">@drawable/ripple</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>v

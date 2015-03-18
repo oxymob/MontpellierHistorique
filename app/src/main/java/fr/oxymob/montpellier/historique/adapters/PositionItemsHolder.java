@@ -1,22 +1,54 @@
 package fr.oxymob.montpellier.historique.adapters;
 
-import android.content.res.Resources;
-import com.android.volley.toolbox.NetworkImageView;
-import com.backelite.bkdroid.adapters.AbstractViewHolder;
-import fr.oxymob.montpellier.historique.MontpellierHistorique;
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import fr.oxymob.montpellier.historique.R;
+import fr.oxymob.montpellier.historique.activities.ADetail;
 import fr.oxymob.montpellier.historique.pojos.Position;
 
-public class PositionItemsHolder extends AbstractViewHolder<Position> {
+public class PositionItemsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-	@Override
-	public void setContent(Resources res, int position, Position content) {
-		get(R.id.item_title).setText(content.getMonument());
-        get(R.id.item_desc).setText(content.getDesc());
-        get(R.id.item_distance).setText(content.getStrDistance());
+    private final TextView mTitle;
+    private final TextView mDescr;
+    private final TextView mDist;
+    private final ImageView mImage;
+    public final CardView container;
+    private Activity mActivity;
+    private Position mPosition;
 
-		if (content.getImageURL() != null)
-			((NetworkImageView) get(R.id.item_image).getView()).setImageUrl(content.getImageURL(), MontpellierHistorique.getInstance().getVolleyImageLoader());
-        ((NetworkImageView) get(R.id.item_image).getView()).setDefaultImageResId(R.drawable.icon_mh);
-	}
+    public PositionItemsHolder(View itemView) {
+        super(itemView);
+        itemView.setOnClickListener(this);
+        container = (CardView) itemView;
+        mTitle = (TextView) itemView.findViewById(R.id.item_title);
+        mDescr = (TextView) itemView.findViewById(R.id.item_desc);
+        mDist = (TextView) itemView.findViewById(R.id.item_distance);
+        mImage = (ImageView) itemView.findViewById(R.id.item_image);
+    }
+
+    public void setContent(Activity context, Position content) {
+        mTitle.setText(content.getMonument());
+        mDescr.setText(content.getDesc());
+        mDist.setText(content.getStrDistance());
+
+        mActivity = context;
+        mPosition = content;
+
+        Picasso.with(context).load(content.getImageURL()).placeholder(R.drawable.icon_mh).error(R.drawable.icon_mh).into(mImage);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(mActivity, ADetail.class);
+        intent.putExtra(ADetail.KEY_EXTRAS, mPosition.getFid());
+        mActivity.startActivity(intent);
+    }
 }
